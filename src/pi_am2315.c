@@ -27,6 +27,7 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <unistd.h>
+#include <assert.h>
 #include "pi_am2315.h"
 
 // Checking to see if we are on a Raspberry PI
@@ -101,24 +102,19 @@ int pi_am2315_open(){
 //
 
 bool pi_am2315_readTemperatureAndHumidity(int fd, float *temperature, float *humidity){
+    assert(fd > -1);
+    assert(temperature != NULL);
+    assert(humidity != NULL);
+
 #ifdef ENABLE_PI_EMULATOR
 
-    sleep(3);
-    printf("write returned %d bytes\n",4);
-    sleep(1);
+    sleep(2);
     *temperature = 20.0;
     *humidity = 10.0;
-    uint16_t crc = 0, crc_res = 0;
-
-    printf("tmp: %f\n", *temperature);
-    printf("hum: %f\n", *humidity);
-    printf("crc: %i\n", crc);
-    printf("crc_res: %i\n", crc_res);
-    printf("crc_ok: %i\n", crc_res == crc);
+    uint16_t crc = 0;
+    uint16_t crc_res = 0;
 
 #else
-
-    sleep(2);
 
     // read request - 3 is the read register command
     // 0 is the address to start at
@@ -141,7 +137,7 @@ bool pi_am2315_readTemperatureAndHumidity(int fd, float *temperature, float *hum
 
     // just sleep a bit
     //
-    sleep(1);
+    sleep(2);
 
     // send the read request
     //
