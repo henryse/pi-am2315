@@ -11,6 +11,8 @@ do
 
     rc=$?
 
+    echo Result: ${rc}
+
     if [[ ${rc} != 0 ]];
     then
         exit ${rc};
