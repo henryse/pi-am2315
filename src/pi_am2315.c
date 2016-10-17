@@ -143,15 +143,12 @@ bool pi_am2315_readTemperatureAndHumidity(int fd, float *temperature, float *hum
     //
     ssize_t n = write(fd, read_request, AM2315_READREG);
 
-    printf("write returned %zi bytes\n",n);
-
     // very short delay to allow device to do data conversion
     //
     sleep(1);
 
     // read the response
     n = read(fd, response, 8);
-    printf("read returned %zi bytes\n",n);
 
     // compute humidity value
 	*humidity = pi_am2315_compute_humidity(response[2], response[3]);
@@ -162,12 +159,6 @@ bool pi_am2315_readTemperatureAndHumidity(int fd, float *temperature, float *hum
  	// compute crc
 	uint16_t crc_res = pi_am2315_crc16(response, 6);
 	uint16_t crc = (response[7] << 8) + response[6];
-
-    printf("tmp: %f\n", *temperature);
-    printf("hum: %f\n", *humidity);
-    printf("crc: %i\n", crc);
-    printf("crc_res: %i\n", crc_res);
-    printf("crc_ok: %i\n", crc_res == crc);
 
 #endif
 
