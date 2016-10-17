@@ -145,7 +145,7 @@ bool pi_am2315_readTemperatureAndHumidity(int fd, float *temperature, float *hum
 
     // very short delay to allow device to do data conversion
     //
-    sleep(1);
+    sleep(2);
 
     // read the response
     n = read(fd, response, 8);
