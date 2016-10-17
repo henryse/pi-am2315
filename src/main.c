@@ -35,14 +35,14 @@ int main() {
         printf("{\"error\": \"pi_am2315_open failed\"}\n");
         return -1;
     }
-    float temperature = 0;
-    float humidity = 0;
+    float temperature = 0.0;
+    float humidity = 0.0;
 
     if (pi_am2315_readTemperatureAndHumidity(fd, &temperature, &humidity)) {
         printf("{\"temperature\": \"%f\", \"humidity\": \"%f\"}\n", temperature, humidity );
     }
     else {
-        printf("{\"error\": \"crc failed\"}\n");
+        printf("{\"error\": \"crc failed\", \"temperature\": \"%f\", \"humidity\": \"%f\"}\n", temperature, humidity);
         return -1;
     }
 
