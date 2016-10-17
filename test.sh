@@ -13,7 +13,7 @@ do
 
     echo Result: ${rc}
 
-    if [[ ${rc} != 0 ]];
+    if [ ${rc} != 0 ];
     then
         exit ${rc};
     fi
