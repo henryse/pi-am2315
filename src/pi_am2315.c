@@ -1,10 +1,9 @@
 //
 // Created by Henry Seurer on 10/16/16.
 //
-
+#include <stdio.h>
 #include <stdint.h>
 #include <unistd.h>
-#include <printf.h>
 #include "pi_am2315.h"
 
 // Checking to see if we are on a Raspberry PI

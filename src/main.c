@@ -1,4 +1,4 @@
-#include <printf.h>
+#include <stdio.h>
 #include "pi_am2315.h"
 
 int main() {
