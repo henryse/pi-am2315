@@ -170,7 +170,9 @@ bool pi_am2315_readTemperatureAndHumidity(int fd, float *temperature, float *hum
     // read the response
     ssize_t n = read(fd, response, 8);
 
-    printf("bytes: %zi", n);
+    if ( n != 8 ){
+        return false;
+    }
 
     // compute humidity value
 	*humidity = pi_am2315_compute_humidity(response[2], response[3]);
