@@ -38,13 +38,21 @@ int main() {
     float temperature = 0.0;
     float humidity = 0.0;
 
-    if (pi_am2315_readTemperatureAndHumidity(fd, &temperature, &humidity)) {
-        printf("{\"temperature\": \"%f\", \"humidity\": \"%f\"}\n", temperature, humidity );
+    bool success = false;
+    for (int retry = 3; 0 < retry; retry--){
+        success = pi_am2315_readTemperatureAndHumidity(fd, &temperature, &humidity);
+
+        if (success){
+            break;
+        }
+    }
+
+    if (success) {
+        printf("{\"temperature\": \"%f\", \"humidity\": \"%f\"}\n", temperature, humidity);
+        return 0;
     }
     else {
         printf("{\"error\": \"crc failed\", \"temperature\": \"%f\", \"humidity\": \"%f\"}\n", temperature, humidity);
         return -1;
     }
-
-    return 0;
 }
