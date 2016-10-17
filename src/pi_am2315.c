@@ -140,9 +140,9 @@ bool pi_am2315_readTemperatureAndHumidity(int fd, float *temperature, float *hum
 	// compute temperature value
 	*temperature = pi_am2315_compute_temperature(response[4], response[5]);
 
-	// compute crc
+ 	// compute crc
 	uint16_t crc_res = pi_am2315_crc16(response, 6);
-	uint16_t crc = (buf[7] << 8) + buf[6];
+	uint16_t crc = (response[7] << 8) + response[6];
 
     printf("tmp: %f\n", *temperature);
     printf("hum: %f\n", *humidity);
