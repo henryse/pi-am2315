@@ -97,6 +97,18 @@ int pi_am2315_open(){
 #endif
 }
 
+void pi_am2315_sleep_ms(int milliseconds) // cross-platform sleep function
+{
+#if _POSIX_C_SOURCE >= 199309L
+    struct timespec ts;
+    ts.tv_sec = milliseconds / 1000;
+    ts.tv_nsec = (milliseconds % 1000) * 1000000;
+    nanosleep(&ts, NULL);
+#else
+    usleep((useconds_t) (milliseconds * 1000));
+#endif
+}
+
 // The AM2315 manual advises that continuous samples must be at least 2 seconds apart).
 //Calling this method avoids the double I2C request.
 //
@@ -109,6 +121,7 @@ bool pi_am2315_readTemperatureAndHumidity(int fd, float *temperature, float *hum
 #ifdef ENABLE_PI_EMULATOR
 
     sleep(2);
+    pi_am2315_sleep_ms(100);
     *temperature = 20.0;
     *humidity = 10.0;
     uint16_t crc = 0;
@@ -140,7 +153,7 @@ bool pi_am2315_readTemperatureAndHumidity(int fd, float *temperature, float *hum
 
     // just sleep a bit
     //
-    sleep(2);
+    pi_am2315_sleep_ms(100);
 
     // send the read request
     //
