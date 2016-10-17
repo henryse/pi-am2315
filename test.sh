@@ -5,6 +5,6 @@ make
 
 for i in {1..1000}
 do
-    echo hello
-
+    echo ${i}
+    ./pi-am2315
 done
