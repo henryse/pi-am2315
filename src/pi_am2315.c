@@ -43,6 +43,10 @@
 
 #endif
 
+#if _POSIX_C_SOURCE >= 199309L
+#include <time.h>   // for nanosleep
+#endif
+
 #define AM2315_I2CADDR       0x5C
 #define AM2315_READREG       0x03
 
