@@ -115,6 +115,9 @@ bool pi_am2315_readTemperatureAndHumidity(int fd, float *temperature, float *hum
     uint16_t crc_res = 0;
 
 #else
+    // Sleep for just a bit.
+    //
+    sleep(2);
 
     // read request - 3 is the read register command
     // 0 is the address to start at
