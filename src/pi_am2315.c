@@ -96,7 +96,7 @@ int pi_am2315_open(){
 #endif
 }
 
-// The AM2315 manual advisess that continuous samples must be at least 2 seconds apart).
+// The AM2315 manual advises that continuous samples must be at least 2 seconds apart).
 //Calling this method avoids the double I2C request.
 //
 
