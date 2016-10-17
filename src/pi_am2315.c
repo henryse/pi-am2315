@@ -136,8 +136,8 @@ bool pi_am2315_readTemperatureAndHumidity(int fd, float *temperature, float *hum
 
     // send some data to wake it up
     //
-    int n = write(fd, dummy, 1);
-    n = write(fd, dummy, 1);
+    write(fd, dummy, 1);
+    write(fd, dummy, 1);
 
     // just sleep a bit
     //
@@ -145,9 +145,9 @@ bool pi_am2315_readTemperatureAndHumidity(int fd, float *temperature, float *hum
 
     // send the read request
     //
-    n = write(fd, read_request, AM2315_READREG);
+    ssize_t n = write(fd, read_request, AM2315_READREG);
 
-    printf("write returned %d bytes\n",n);
+    printf("write returned %zi bytes\n",n);
 
     // very short delay to allow device to do data conversion
     //
@@ -155,7 +155,7 @@ bool pi_am2315_readTemperatureAndHumidity(int fd, float *temperature, float *hum
 
     // read the response
     n = read(fd, response, 8);
-    printf("read returned %d bytes\n",n);
+    printf("read returned %zi bytes\n",n);
 
     // compute humidity value
 	*humidity = pi_am2315_compute_humidity(response[2], response[3]);
