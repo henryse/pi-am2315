@@ -40,7 +40,6 @@ int main() {
     float humidity = 0;
 
     pi_am2315_readTemperatureAndHumidity(fd, &temperature, &humidity);
-    printf("hello world %f, %f", temperature, humidity);
 
     return 0;
 }
